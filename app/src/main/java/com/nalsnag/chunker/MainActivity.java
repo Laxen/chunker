@@ -246,7 +246,7 @@ public class MainActivity extends AppCompatActivity implements RecyclerView.OnTo
      *
      * GIT
      *
-     * Figure out removal of task
+     * Figure out removal of tas
      *      Maybe swipe it again after it is dashed?
      *
      * Figure out way to undo the line
