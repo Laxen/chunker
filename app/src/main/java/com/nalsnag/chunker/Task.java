@@ -77,6 +77,6 @@ public class Task {
         if(masterTask != null) {
             masterTaskName = masterTask.getTaskName();
         }
-        return "Subtasks: " + subTasks.size() + " - masterTask = " + masterTaskName;
+        return "Subtasks: " + subTasks.size() + " - masterTask = " + masterTaskName + " - Done = " + done;
     }
 }

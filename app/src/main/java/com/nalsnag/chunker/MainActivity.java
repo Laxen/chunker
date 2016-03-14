@@ -244,13 +244,16 @@ public class MainActivity extends AppCompatActivity implements RecyclerView.OnTo
      * CLEAN UP LOAD AND SAVE
      *      PUT SAVE IN METHOD BEFORE APP IS CLOSED
      *
-     * GIT
      *
-     * Figure out removal of tas
-     *      Maybe swipe it again after it is dashed?
      *
-     * Figure out way to undo the line
-     *      Maybe swipe it the other way?
+     * Completely change swipe mechanic
+     *      SWIPE away task to mark as done
+     *      Task will disappear and reappear grayed out and dashed at bottom
+     *      SWIPE gray task to remove it
+     *
+     *
+     *
+     *
      *
      * I think containerList is unnecessary
      *      Could be done with just masterTask.getSubTasks() ?

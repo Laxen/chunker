@@ -280,7 +280,17 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHo
      * Called from SimpleItemTouchHelperCallback when item is swiped completely (NOT during swipe)
      */
     public void onItemDismiss(ViewHolder viewHolder) {
+        Log.d("HEJ", "onItemDismiss");
         viewHolder.setDone(true);
+//
+//        int fromPos = viewHolder.getAdapterPosition();
+//        int toPos = taskList.size() - 1;
+//
+//        Task task = taskList.get(fromPos);
+//        taskList.remove(fromPos);
+//        taskList.add(toPos, task);
+//
+//        notifyItemMoved(fromPos, toPos);
     }
 
     /**
