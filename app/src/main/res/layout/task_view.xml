@@ -46,8 +46,9 @@
             android:paddingEnd="@dimen/activity_horizontal_margin"
             android:paddingTop="8dp"
             android:focusableInTouchMode="false"
-            android:inputType="text"
-            android:imeOptions="actionDone"/>
+            android:inputType="text|textNoSuggestions|textCapSentences"
+            android:imeOptions="actionDone"
+            android:selectAllOnFocus="true"/>
 
         <TextView
             android:id="@+id/task_desc"

@@ -204,7 +204,7 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHo
 
         // Show soft keyboard
         final InputMethodManager inputMethodManager = (InputMethodManager) vh.titleView.getContext().getSystemService(Context.INPUT_METHOD_SERVICE);
-        inputMethodManager.showSoftInput(vh.titleView, InputMethodManager.SHOW_IMPLICIT);
+        inputMethodManager.toggleSoftInput(InputMethodManager.SHOW_FORCED, 0);
     }
 
     /**
@@ -214,6 +214,7 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHo
         Task task = new Task("New task");
         task.setContainerList(taskList);
         task.setMasterTask(masterTask);
+        task.setNew(true);
 
         int pos = taskList.size();
         for(int i = 0; i < taskList.size(); i++) {
@@ -238,6 +239,11 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHo
         Task task = taskList.get(position);
         holder.setTask(task); // Changes the task in the view holder
         holder.reset(); // Resets the view holder so it displays the right task data
+
+        if(task.isNew()) {
+            enterTaskEditMode(holder);
+            task.setNew(false);
+        }
     }
 
     /**

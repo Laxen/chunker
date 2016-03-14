@@ -10,6 +10,8 @@ public class Task {
 
     private boolean done = false;
 
+    private boolean newTask = false;
+
     public Task(String taskName) {
         this.taskName = taskName;
         this.subTasks = new ArrayList<>();
@@ -95,5 +97,13 @@ public class Task {
         }
 
         return doneSubtasks / subTasks.size();
+    }
+
+    public boolean isNew() {
+        return newTask;
+    }
+
+    public void setNew(boolean newTask) {
+        this.newTask = newTask;
     }
 }
