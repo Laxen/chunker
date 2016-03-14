@@ -246,10 +246,7 @@ public class MainActivity extends AppCompatActivity implements RecyclerView.OnTo
      *
      *
      *
-     * Completely change swipe mechanic
-     *      SWIPE away task to mark as done
-     *      Task will disappear and reappear grayed out and dashed at bottom
-     *      SWIPE gray task to remove it
+     *
      *
      *
      *

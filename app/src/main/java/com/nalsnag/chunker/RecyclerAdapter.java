@@ -2,6 +2,7 @@ package com.nalsnag.chunker;
 
 import android.content.Context;
 import android.graphics.Color;
+import android.graphics.Paint;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.KeyEvent;
@@ -52,8 +53,10 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHo
 
                 if(task.isDone()) {
                     titleView.setTextColor(Color.GRAY);
+                    titleView.setPaintFlags(titleView.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
                 } else {
                     titleView.setTextColor(Color.BLACK);
+                    titleView.setPaintFlags(titleView.getPaintFlags() & (~Paint.STRIKE_THRU_TEXT_FLAG));
                 }
 
 //                boolean done = task.isDone();
