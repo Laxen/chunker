@@ -85,7 +85,8 @@
             android:layout_width="match_parent"
             android:layout_height="1dp"
             android:background="#ffababab"
-            android:layout_below="@+id/task_desc"/>
+            android:layout_below="@+id/task_desc"
+            android:layout_alignParentBottom="true"/>
 
     </RelativeLayout>
 
