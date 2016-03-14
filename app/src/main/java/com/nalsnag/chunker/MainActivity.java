@@ -244,14 +244,6 @@ public class MainActivity extends AppCompatActivity implements RecyclerView.OnTo
      * CLEAN UP LOAD AND SAVE
      *      PUT SAVE IN METHOD BEFORE APP IS CLOSED
      *
-     *
-     *
-     *
-     *
-     *
-     *
-     *
-     *
      * I think containerList is unnecessary
      *      Could be done with just masterTask.getSubTasks() ?
      *
