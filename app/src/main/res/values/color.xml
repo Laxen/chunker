@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="primary">#673AB7</color>
-    <color name="primary_dark">#512DA8</color>
-    <color name="accent">#009688</color>
+    <color name="primary">#D84315</color>
+    <color name="primary_dark">#BF360C</color>
+    <color name="accent">#0091EA</color>
+    <color name="progressbar">#FFAB91</color>
     <color name="text">#FFFFFF</color>
 </resources>

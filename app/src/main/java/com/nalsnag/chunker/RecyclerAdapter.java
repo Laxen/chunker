@@ -12,6 +12,7 @@ import android.view.ViewGroup;
 import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
@@ -33,6 +34,8 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHo
             private ImageView editView; // The view for editing (the little pen)
 //            private TableRow line; // The line that gets drawn when swiping a task
             private Task task; // The actual task object. Contains the sub tasks
+            private ImageView progressBarMain;
+            private View progressBarDummy;
 
             public ViewHolder(View v) {
                 super(v);
@@ -40,6 +43,8 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHo
                 description = (TextView) v.findViewById(R.id.task_desc);
                 editView = (ImageView) v.findViewById(R.id.task_edit);
 //                line = (TableRow) v.findViewById(R.id.task_line);
+                progressBarMain = (ImageView) v.findViewById(R.id.progress_bar_1);
+                progressBarDummy = v.findViewById(R.id.progress_bar_2);
 
                 titleView.setViewHolder(this); // The title view needs a reference to the ViewHolder because it calls updateTask() (used for soft keyboard)
             }
@@ -58,6 +63,16 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHo
                     titleView.setTextColor(Color.BLACK);
                     titleView.setPaintFlags(titleView.getPaintFlags() & (~Paint.STRIKE_THRU_TEXT_FLAG));
                 }
+
+                float progressBarPercentage = task.getDonePercent();
+                LinearLayout.LayoutParams progress1 = (LinearLayout.LayoutParams) progressBarMain.getLayoutParams();
+                LinearLayout.LayoutParams progress2 = (LinearLayout.LayoutParams) progressBarDummy.getLayoutParams();
+
+                progress1.weight = 1-progressBarPercentage;
+                progress2.weight = progressBarPercentage;
+
+                progressBarMain.setLayoutParams(progress1);
+                progressBarDummy.setLayoutParams(progress2);
 
 //                boolean done = task.isDone();
 //                RelativeLayout.LayoutParams params = (RelativeLayout.LayoutParams) line.getLayoutParams();
@@ -200,14 +215,17 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHo
         task.setContainerList(taskList);
         task.setMasterTask(masterTask);
 
+        int pos = taskList.size();
         for(int i = 0; i < taskList.size(); i++) {
             Task temp = taskList.get(i);
             if(temp.isDone()) {
-                taskList.add(i, task);
-                notifyItemInserted(i);
+                pos = i;
                 break;
             }
         }
+
+        taskList.add(pos, task);
+        notifyItemInserted(pos);
 
         // ADD CODE TO ENTER EDIT MODE
     }

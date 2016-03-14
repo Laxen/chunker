@@ -77,6 +77,23 @@ public class Task {
         if(masterTask != null) {
             masterTaskName = masterTask.getTaskName();
         }
-        return "Subtasks: " + subTasks.size() + " - masterTask = " + masterTaskName + " - Done = " + done;
+        //return "Subtasks: " + subTasks.size() + " - masterTask = " + masterTaskName + " - Done = " + done;
+        return "Description";
+    }
+
+    public float getDonePercent() {
+        if(subTasks.size() == 0) {
+            return 0;
+        }
+
+        float doneSubtasks = 0;
+
+        for(Task task : subTasks) {
+            if(task.isDone()) {
+                doneSubtasks++;
+            }
+        }
+
+        return doneSubtasks / subTasks.size();
     }
 }
