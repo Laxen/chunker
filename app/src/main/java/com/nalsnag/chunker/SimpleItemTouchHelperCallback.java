@@ -40,15 +40,15 @@ public class SimpleItemTouchHelperCallback extends ItemTouchHelper.Callback {
         adapter.onItemDismiss((RecyclerAdapter.ViewHolder) viewHolder);
     }
 
-    /**
-     * We override this because we don't want the regular swipe animation, but rather the line animation
-     */
-    @Override
-    public void onChildDraw(Canvas c, RecyclerView recyclerView, RecyclerView.ViewHolder viewHolder, float dX, float dY, int actionState, boolean isCurrentlyActive) {
-        if(actionState == ItemTouchHelper.ACTION_STATE_DRAG) { // Do not care if we are moving item
-            super.onChildDraw(c, recyclerView, viewHolder, dX, dY, actionState, isCurrentlyActive);
-        } else if(actionState == ItemTouchHelper.ACTION_STATE_SWIPE) {
-            adapter.onSwiping((RecyclerAdapter.ViewHolder) viewHolder, dX);
-        }
-    }
+//    /**
+//     * We override this because we don't want the regular swipe animation, but rather the line animation
+//     */
+//    @Override
+//    public void onChildDraw(Canvas c, RecyclerView recyclerView, RecyclerView.ViewHolder viewHolder, float dX, float dY, int actionState, boolean isCurrentlyActive) {
+//        if(actionState == ItemTouchHelper.ACTION_STATE_DRAG) { // Do not care if we are moving item
+//            super.onChildDraw(c, recyclerView, viewHolder, dX, dY, actionState, isCurrentlyActive);
+//        } else if(actionState == ItemTouchHelper.ACTION_STATE_SWIPE) {
+//            adapter.onSwiping((RecyclerAdapter.ViewHolder) viewHolder, dX);
+//        }
+//    }
 }

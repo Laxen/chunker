@@ -1,6 +1,7 @@
 package com.nalsnag.chunker;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.KeyEvent;
@@ -29,7 +30,7 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHo
             private EditTextBackHandler titleView; // The view for the title of the task
             private TextView description;
             private ImageView editView; // The view for editing (the little pen)
-            private TableRow line; // The line that gets drawn when swiping a task
+//            private TableRow line; // The line that gets drawn when swiping a task
             private Task task; // The actual task object. Contains the sub tasks
 
             public ViewHolder(View v) {
@@ -37,20 +38,9 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHo
                 titleView = (EditTextBackHandler) v.findViewById(R.id.task_title);
                 description = (TextView) v.findViewById(R.id.task_desc);
                 editView = (ImageView) v.findViewById(R.id.task_edit);
-                line = (TableRow) v.findViewById(R.id.task_line);
+//                line = (TableRow) v.findViewById(R.id.task_line);
 
                 titleView.setViewHolder(this); // The title view needs a reference to the ViewHolder because it calls updateTask() (used for soft keyboard)
-            }
-
-            /**
-             * Changes the width and visibility of the line to make the task dashed through
-             */
-            public void animateSwipe(float dX) {
-                line.setVisibility(TableRow.VISIBLE);
-
-                RelativeLayout.LayoutParams params = (RelativeLayout.LayoutParams) line.getLayoutParams(); // RelativeLayout is the root view, so we need parameters for that for whatever reason
-                params.width = (int) dX; // Change the width parameter...
-                line.setLayoutParams(params); // ...on the line
             }
 
             /**
@@ -60,18 +50,24 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHo
                 titleView.setText(task.getTaskName()); // Changes the text of the task
                 description.setText(task.getTaskDescription()); // Changes the description of the task
 
-                boolean done = task.isDone();
-                RelativeLayout.LayoutParams params = (RelativeLayout.LayoutParams) line.getLayoutParams();
-
-                if(done) {
-                    params.width = RelativeLayout.LayoutParams.MATCH_PARENT; // Makes the task dashed through
-                    line.setVisibility(TableRow.VISIBLE);
+                if(task.isDone()) {
+                    titleView.setTextColor(Color.GRAY);
                 } else {
-                    params.width = 0; // Removes the line
-                    line.setVisibility(TableRow.INVISIBLE);
+                    titleView.setTextColor(Color.BLACK);
                 }
 
-                line.setLayoutParams(params);
+//                boolean done = task.isDone();
+//                RelativeLayout.LayoutParams params = (RelativeLayout.LayoutParams) line.getLayoutParams();
+//
+//                if(done) {
+//                    params.width = RelativeLayout.LayoutParams.MATCH_PARENT; // Makes the task dashed through
+//                    line.setVisibility(TableRow.VISIBLE);
+//                } else {
+//                    params.width = 0; // Removes the line
+//                    line.setVisibility(TableRow.INVISIBLE);
+//                }
+//
+//                line.setLayoutParams(params);
             }
 
             /**
@@ -80,10 +76,6 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHo
              */
             public void updateTask() {
                 task.setTaskName(titleView.getText().toString());
-            }
-
-            public void setDone(boolean done) {
-                task.setDone(done);
             }
 
             public void setTask(Task task) {
@@ -217,7 +209,8 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHo
      */
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
-        holder.setTask(taskList.get(position)); // Changes the task in the view holder
+        Task task = taskList.get(position);
+        holder.setTask(task); // Changes the task in the view holder
         holder.reset(); // Resets the view holder so it displays the right task data
     }
 
@@ -280,17 +273,17 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHo
      * Called from SimpleItemTouchHelperCallback when item is swiped completely (NOT during swipe)
      */
     public void onItemDismiss(ViewHolder viewHolder) {
-        Log.d("HEJ", "onItemDismiss");
-        viewHolder.setDone(true);
-//
-//        int fromPos = viewHolder.getAdapterPosition();
-//        int toPos = taskList.size() - 1;
-//
-//        Task task = taskList.get(fromPos);
-//        taskList.remove(fromPos);
-//        taskList.add(toPos, task);
-//
-//        notifyItemMoved(fromPos, toPos);
+        int pos = viewHolder.getAdapterPosition();
+        Task task = taskList.get(pos);
+
+        taskList.remove(pos);
+        notifyItemRemoved(pos);
+
+        if(!task.isDone()) {
+            task.setDone(true);
+            taskList.add(taskList.size(), task);
+            notifyItemInserted(taskList.size());
+        }
     }
 
     /**
@@ -315,7 +308,7 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHo
      * Called from SimpleItemTouchHelperCallback when item is being swiped and animation should be drawn (DURING swipe)
      * This is actually in the draw loop, like it should be
      */
-    public void onSwiping(ViewHolder viewHolder, float dX) {
-        viewHolder.animateSwipe(dX);
-    }
+//    public void onSwiping(ViewHolder viewHolder, float dX) {
+//        viewHolder.animateSwipe(dX);
+//    }
 }
