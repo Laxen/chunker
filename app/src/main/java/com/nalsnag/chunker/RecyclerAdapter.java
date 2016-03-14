@@ -197,9 +197,14 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHo
         task.setContainerList(taskList);
         task.setMasterTask(masterTask);
 
-        taskList.add(task);
-
-        notifyItemInserted(taskList.size());
+        for(int i = 0; i < taskList.size(); i++) {
+            Task temp = taskList.get(i);
+            if(temp.isDone()) {
+                taskList.add(i, task);
+                notifyItemInserted(i);
+                break;
+            }
+        }
 
         // ADD CODE TO ENTER EDIT MODE
     }
